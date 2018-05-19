@@ -1,0 +1,14 @@
+{
+  "name": "exchangerate",
+  "version": "1.0.0",
+  "main": "exchangerate.js",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "puppeteer": "^1.4.0"
+  },
+  "scripts": {
+    "run": "node exchangerate.js"
+  }
+}

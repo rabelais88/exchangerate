@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>환전용 가격표(스텔라 마리나)</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-axios@2.1.1/dist/vue-axios.min.js"></script>
+
+    <div id="app">
+      <loader v-if="isLoading">자료를 읽어오고 있습니다</loader>
+
+      <label for="taxratio">환전 비율(tax rate)</label>
+      <input type="text" v-model.number="taxRatio" name="taxratio" type="number"/>
+      <table>
+        <thead>
+          <tr>
+            <th>환율명</th>
+            <th>매매가</th>
+            <th>수수료 적용시</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(elCurrency, i) in dataCurrency">
+            <td>{{elCurrency[0]}}</td>
+            <td>{{elCurrency[3]}}</td>
+            <td>{{taxed[i]}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <script src="./app.js"></script>
+  </body>
+</html>
+
