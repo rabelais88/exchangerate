@@ -9,6 +9,7 @@
     "puppeteer": "^1.4.0"
   },
   "scripts": {
-    "run": "node exchangerate.js"
+    "nodemon": "nodemon exchangerate.js",
+    "run":"node exchangerate.js"
   }
 }

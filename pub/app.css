@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic');
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto 500px auto;
+  grid-template-rows: auto 500px auto;
+  grid-gap: 1px 1px;
+}
+
+[data-area="apparea"] {
+  grid-area: 2 / 2 / 2 / 2;
+}
+
+table,td,th,.padded{
+  padding:20px;
+}
+
+table{
+  border-collapse:collapse;
+  width:100%;
+}
+
+td{
+  border-top:dotted 1px lightslategray;
+  text-align:center;
+}
+
+
+
+*{
+  font-size:1.3rem;
+  font-family: 'Nanum Gothic', sans-serif;
+}
+
+input[type="number"]{
+  width:3rem;
+  border:none;
+  text-align:right;
+  border-bottom:solid 2px transparent;
+  transition:.5s;
+}
+
+input[type="number"]:hover{
+  border-bottom:solid 2px palevioletred;
+  transition:.5s;
+}
+
+input[type="number"]:focus{
+  background-color:palevioletred;
+  color:white;
+}
+
+a{
+  padding:10px;
+  background-color:palevioletred;
+  color:white;
+  display:block;
+  text-align:center;
+  transition:.5s;
+  border:solid 1px transparent;
+}
+a:hover{
+  background-color:transparent;
+  color:palevioletred;
+  transition:.5s;
+  border-color:palevioletred;
+}
+
+@media print {
+  a { display:none; }
+}
+
+h3{
+  text-align:center;
+}
+
+hr{
+  border:none;
+  border-bottom:solid 2px lightslategray;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}

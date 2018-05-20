@@ -24,19 +24,31 @@ const fetchRawData = async (_puppeteer, _targetUrl,_optionBrowser,_setting, _cb,
   const _page = await _browser.newPage()
   await _page.goto(_targetUrl)
   await _page.waitFor(1000)
-  let currencies = await _page.evaluate((selector)=> {
-    return [...document.querySelectorAll(selector)].map(el=>{
-      return el.innerText})
+
+
+
+  let currencies = await _page.evaluate(selector=> {
+    return [...document.querySelectorAll(selector)].map(el=>el.innerText)
   }, '#list > tr')
 
-  _cb(currencies,_setting,_cbFinal)
+  let timemarked = await _page.evaluate(selector=>{
+    return document.querySelector(selector).innerText
+  },'.today')
+
+  //console.log(currencies,timemarked)
+  await _browser.close()
+  _cb({currencies,timemarked},_setting,_cbFinal)
 }
 
 
-function filterCurrency(_currencies,_setting,_cbFinal){
-  let res = _currencies.map(el=>
+function filterCurrency(_data,_setting,_cbFinal){
+  let res = _data.currencies.map(el=>
     el.split('\t')).filter(el=>_setting.valid.includes(el[CURRENCY_NAME]))
-  _cbFinal(res)
+    .map(el=>{
+      return {name:el[CURRENCY_NAME],
+              priceSell:el[SELL_PRICE]}
+    })
+  _cbFinal({currencies:res,timemarked:_data.timemarked.replace('기준일시: ','')})
 }
 
 app.use(bodyParser.json())
@@ -50,6 +62,7 @@ http.listen(setting.port, function(){
 
 
 app.use('/app.js',express.static(__dirname + '/pub/app.js'))
+app.use('/app.css',express.static(__dirname + '/pub/app.css'))
 
 app.get('/',(req,res)=>{
   fs.readFile('pub/index.html','utf8',(err,data)=>{
@@ -62,3 +75,5 @@ app.get('/currencydata',(req,res)=>{
     res.json(data)
   })
 })
+
+process.on('unhandledRejection', up => { throw up });

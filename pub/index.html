@@ -4,17 +4,23 @@
     <title>환전용 가격표(스텔라 마리나)</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" type="text/css" href="./app.css">
   </head>
-  <body>
+  <body class="grid-container">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue-axios@2.1.1/dist/vue-axios.min.js"></script>
 
-    <div id="app">
+    <div id="app" data-area="apparea">
       <loader v-if="isLoading">자료를 읽어오고 있습니다</loader>
-
-      <label for="taxratio">환전 비율(tax rate)</label>
-      <input type="text" v-model.number="taxRatio" name="taxratio" type="number"/>
+      <a @click="printout">인쇄하기</a>
+      <div class="padded">
+        <h3> {{timemarked}} </h3>
+        <label for="taxratio">환전 수수료 비율(tax rate)</label>
+        <input v-model.number="taxRatio" name="taxratio" type="number"/>
+        <span>%</span>
+      </div>
+      <hr/>
       <table>
         <thead>
           <tr>
@@ -25,12 +31,13 @@
         </thead>
         <tbody>
           <tr v-for="(elCurrency, i) in dataCurrency">
-            <td>{{elCurrency[0]}}</td>
-            <td>{{elCurrency[3]}}</td>
+            <td>{{elCurrency.name}}</td>
+            <td>{{elCurrency.priceSell}}</td>
             <td>{{taxed[i]}}</td>
           </tr>
         </tbody>
       </table>
+
     </div>
     <script src="./app.js"></script>
   </body>
